@@ -11,7 +11,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add New Artist"
+        android:text="Login Sigap"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         tools:layout_editor_absoluteX="112dp"
         tools:layout_editor_absoluteY="16dp"
@@ -66,5 +66,16 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="205dp"
         tools:ignore="UnknownId" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tidak Punya Akun? Silahkan Sign Up"
+        android:id="@+id/nav_regist"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/submit"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

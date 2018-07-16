@@ -1,5 +1,6 @@
 package com.project.rezasaputra.kotlinkt
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -19,9 +20,16 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
+
         //memanggil function login
         submit.setOnClickListener {
             login()
+        }
+
+        nav_regist.setOnClickListener {
+            val pindah = Intent(this@Login, Register::class.java)
+            startActivity(pindah)
         }
 
     }
@@ -38,7 +46,9 @@ class Login : AppCompatActivity() {
                     try {
                         //ini ngambil responnya dari json
                         val obj = JSONObject(response)
-                        Toast.makeText(applicationContext, obj.getString("error"), Toast.LENGTH_LONG).show()
+                        val intent = Intent (this@Login, Utama::class.java)
+                        startActivity(intent)
+                        Toast.makeText(applicationContext, obj.getString("msg"), Toast.LENGTH_LONG).show()
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -56,7 +66,6 @@ class Login : AppCompatActivity() {
                 return params
             }
         }
-
         //adding request to queue
         VolleySingleton.instance?.addToRequestQueue(stringRequest)
     }
