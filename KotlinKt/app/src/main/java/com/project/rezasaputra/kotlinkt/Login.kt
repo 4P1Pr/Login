@@ -49,11 +49,12 @@ class Login : AppCompatActivity() {
                         val message = obj.getString("msg")
                         if(message == "Login Success"){
 
-                            //intent disini
+                            val intent = Intent (this@Login, Utama::class.java)
+                            startActivity(intent)
 
-                            Toast.makeText(applicationContext, "sukses pindah  "+message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
                         }else{
-                            Toast.makeText(applicationContext, "Eror  "+message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
                         }
                         //val intent = Intent (this@Login, Utama::class.java)
                         //startActivity(intent)

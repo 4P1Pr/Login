@@ -1,5 +1,6 @@
 package com.project.rezasaputra.kotlinkt
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -39,10 +40,20 @@ class Register : AppCompatActivity() {
                 Response.Listener<String> { response ->
                     try {
                         //ini ngambil responnya dari json
-                        val objek = JSONObject(response)
-                        /*val intent = Intent (this@Register, Login::class.java)
-                        startActivity(intent)*/
-                        Toast.makeText(applicationContext, objek.getString("msg"), Toast.LENGTH_LONG).show()
+                        val obj = JSONObject(response)
+                        val message = obj.getString("msg")
+                        if(message == "User Added"){
+
+                            val pindah = Intent (this@Register, Login::class.java)
+                            startActivity(pindah)
+
+                            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                        }
+                        //val intent = Intent (this@Login, Utama::class.java)
+                        //startActivity(intent)
+                        //Toast.makeText(applicationContext, obj.getString("msg"), Toast.LENGTH_LONG).show()
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -58,7 +69,7 @@ class Register : AppCompatActivity() {
                 paramex.put("nama", etname)
                 paramex.put("email", etemail)
                 paramex.put("password", etpassword)
-                paramex.put("nohp", etnohp)
+                paramex.put("phone", etnohp)
                 paramex.put("id_fb", etfb)
                 paramex.put("id_gplus", etgplus)
                 return paramex
