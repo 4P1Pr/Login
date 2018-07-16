@@ -46,8 +46,17 @@ class Login : AppCompatActivity() {
                     try {
                         //ini ngambil responnya dari json
                         val obj = JSONObject(response)
-                        val intent = Intent (this@Login, Utama::class.java)
-                        startActivity(intent)
+                        val message = obj.getString("msg")
+                        if(message=="success"){
+
+                            //intent disini
+
+                            Toast.makeText(applicationContext, obj.getString("msg"), Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(applicationContext, "Eror", Toast.LENGTH_LONG).show()
+                        }
+                        //val intent = Intent (this@Login, Utama::class.java)
+                        //startActivity(intent)
                         Toast.makeText(applicationContext, obj.getString("msg"), Toast.LENGTH_LONG).show()
                     } catch (e: JSONException) {
                         e.printStackTrace()
