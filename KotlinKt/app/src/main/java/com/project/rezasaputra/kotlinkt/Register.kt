@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONException
@@ -36,20 +35,20 @@ class Register : AppCompatActivity() {
 
 
         //ini untuk membuat request ke volley dengan parameter dan method post
-        val stringRequestRegister = object : StringRequest(Request.Method.POST, EndPoints.URL_REGISTER,
+        val stringRequest = object : StringRequest(Request.Method.POST, EndPoints.URL_REGISTER,
                 Response.Listener<String> { response ->
                     try {
                         //ini ngambil responnya dari json
                         val obj = JSONObject(response)
-                        val message = obj.getString("msg")
-                        if(message == "User Added"){
+                        val msg = obj.getString("msg")
+                        if(msg == "User Added"){
 
-                            val pindah = Intent (this@Register, Login::class.java)
-                            startActivity(pindah)
+                            val intent = Intent (this@Register, Utama::class.java)
+                            startActivity(intent)
 
-                            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, msg, Toast.LENGTH_LONG).show()
                         }else{
-                            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, msg, Toast.LENGTH_LONG).show()
                         }
                         //val intent = Intent (this@Login, Utama::class.java)
                         //startActivity(intent)
@@ -58,24 +57,21 @@ class Register : AppCompatActivity() {
                         e.printStackTrace()
                     }
                 },
-                object : Response.ErrorListener {
-                    override fun onErrorResponse(Error: VolleyError) {
-                        Toast.makeText(applicationContext, Error.message, Toast.LENGTH_LONG).show()
-                    }
-                }) {
+                Response.ErrorListener { volleyError -> 
+                    Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG).show() }) {
             @Throws(AuthFailureError::class)
             override fun getParams(): Map<String, String> {
                 val paramex = HashMap<String, String>()
-                paramex.put("nama", etname)
                 paramex.put("email", etemail)
                 paramex.put("password", etpassword)
-                paramex.put("phone", etnohp)
                 paramex.put("id_fb", etfb)
                 paramex.put("id_gplus", etgplus)
+                paramex.put("phone", etnohp)
+                paramex.put("nama", etname)
                 return paramex
             }
         }
         //adding request to queue
-        VolleySingleton.instance?.addToRequestQueue(stringRequestRegister)
+        VolleySingleton.instance?.addToRequestQueue(stringRequest)
     }
 }
